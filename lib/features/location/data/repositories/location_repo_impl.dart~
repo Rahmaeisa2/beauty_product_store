@@ -1,0 +1,14 @@
+import '../../domain/entity/location_entity.dart';
+import '../../domain/repository/location_repo.dart';
+import '../datasource/location_remote_data_source.dart';
+
+class LocationRepositoryImpl implements LocationRepository {
+  final LocationRemoteDataSource dataSource;
+
+  LocationRepositoryImpl(this.dataSource);
+
+  @override
+  Future<UserLocation> getCurrentLocation() {
+    return dataSource.getCurrentLocation();
+  }
+}

@@ -10,11 +10,10 @@ SignupUsecase(this.authRepository);
 Future<UserEntity> signUp ({
   required String username,
   required String password,
-  required String firstName,
-  required String lastName,
+  required String Name,
   required String email,
 }){
   return authRepository.signUp
     (username: username, password: password,
-      firstName: firstName, lastName: lastName, email: email);}
+      Name: Name, email: email);}
 }

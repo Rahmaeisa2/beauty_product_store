@@ -1,9 +1,11 @@
 import 'package:beauty_product_store/core/constants/app_color.dart';
 import 'package:beauty_product_store/core/widget/custom_text_form_field.dart';
+import 'package:beauty_product_store/features/auth/presentation/cubit/login_state.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../../core/routes/routes_names.dart';
 import '../../../../core/widget/custom_elevated_button.dart';
 import '../cubit/login_cubit.dart';
 
@@ -22,7 +24,31 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.primary,
-      body: Padding(
+      body: BlocConsumer<LoginCubit ,LoginState>(
+        listener: (context, state) {
+      if (state is LoginSuccess) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Account created successfully'),
+          ),
+        );
+        Navigator.pushReplacementNamed(
+          context,
+          RouteNames.navBar,
+        );
+      }
+
+      if (state is LoginError) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(state.message),
+          ),
+        );
+      }
+    },
+    builder: (context,state) {
+
+    return Padding(
         padding: const EdgeInsets.symmetric(
           horizontal: 12,
           vertical: 10
@@ -77,11 +103,18 @@ class _LoginScreenState extends State<LoginScreen> {
                     userName: emailController.text,
                     password: passwordController.text,
                   );
-                },)
+                  Navigator.pushReplacementNamed(context, RouteNames.home);
+                },),
+            TextButton(child : Text("Don't have account ? "),
+            onPressed:(){
+              Navigator.pushReplacementNamed(
+                  context,
+                  RouteNames.signup,);
+            })
           ],
         ),
-      ),
-    );
+      );}
+    ));
   }
 }
 

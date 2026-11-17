@@ -35,15 +35,13 @@ class AuthRepositoryImpl extends AuthRepository {
   Future<UserEntity> signUp({
     required String username,
     required String password,
-    required String firstName,
-    required String lastName,
+    required String Name,
     required String email,
   }) async {
     final request = SignupRequestModel(
       username: username,
       password: password,
-      firstName: firstName,
-      lastName: lastName,
+      Name: Name,
       email: email,
     );
 

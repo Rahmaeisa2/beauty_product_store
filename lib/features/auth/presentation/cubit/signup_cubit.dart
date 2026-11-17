@@ -12,31 +12,33 @@ class SignupCubit extends Cubit<SignUpState> {
   Future<void> signUp({
     required String username,
     required String password,
-    required String firstName,
-    required String lastName,
+    required String Name,
     required String email,
   }) async {
+    print('1️⃣ SignupCubit: method called');
+
     emit(SignUpLoading());
+    print('2️⃣ SignupCubit: Loading emitted');
 
     try {
+      print('3️⃣ Calling SignupUsecase');
+
       final user = await useCase.signUp(
         username: username,
         password: password,
-        firstName: firstName,
-        lastName: lastName,
+        Name: Name,
         email: email,
       );
 
-      print('========== SIGN UP SUCCESS ==========');
+      print('4️⃣ SignupUsecase completed');
       print('User ID: ${user.id}');
       print('Username: ${user.username}');
-      print('Name: ${user.fullName}');
-      print('Email: ${user.email}');
-      print('=====================================');
 
       emit(SignUpSuccess(user));
-    } catch (e) {
-      print(' SIGN UP ERROR: $e');
+      print('5️⃣ SignupSuccess emitted');
+    } catch (e, stackTrace) {
+      print('❌ Signup failed: $e');
+      print(stackTrace);
 
       emit(SignUpError(e.toString()));
     }

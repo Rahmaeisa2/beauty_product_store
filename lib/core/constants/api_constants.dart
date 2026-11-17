@@ -1,6 +1,5 @@
 class ApiConstants {
   static const String baseUrl = 'https://dummyjson.com/';
   static const String login = 'auth/login';
-  static const String signUp = 'auth/add';
-
+  static const String signUp = 'users/add';
 }

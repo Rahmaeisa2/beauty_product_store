@@ -1,15 +1,13 @@
 class SignupRequestModel {
   final String username;
   final String password;
-  final String firstName;
-  final String lastName;
+  final String Name;
   final String email;
 
   SignupRequestModel({
     required this.username,
     required this.password,
-    required this.firstName,
-    required this.lastName,
+    required this.Name,
     required this.email,
   });
 
@@ -17,8 +15,7 @@ class SignupRequestModel {
     return {
       'username': username,
       'password': password,
-      'firstName': firstName,
-      'lastName': lastName,
+      'firstName': Name,
       'email': email,
     };
   }

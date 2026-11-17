@@ -1,12 +1,16 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
+import '../../../../core/storage/flutter_secure_storage.dart';
 import '../../domain/usecases/login_usecase.dart';
 import 'login_state.dart';
 
 class LoginCubit extends Cubit<LoginState> {
   final LoginUseCase useCase;
+  final SecureStorageService secureStorage;
 
-  LoginCubit(this.useCase) : super(LoginInitial());
+  LoginCubit(this.useCase,
+      this.secureStorage) : super(LoginInitial());
 
   Future<void> login({
     required String userName,
@@ -21,6 +25,10 @@ class LoginCubit extends Cubit<LoginState> {
       final result = await useCase(
         username: userName,
         password: password,
+      );
+      await secureStorage.saveToken(
+        accessToken: result.accessToken,
+        refreshToken: result.refreshToken,
       );
 
       print('========== LOGIN SUCCESS ==========');
